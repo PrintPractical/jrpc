@@ -52,6 +52,34 @@
 //!     }
 //! }
 //! ```
+//! 
+//! ### Notifications
+//! 
+//! JSON-RPC Notifications are pretty much Requests, without an ID... You can build Notifications like:
+//! ```rust
+//! use jrpc_types::JsonRpcNotification;
+//! 
+//! let data = vec![10, 293, 2, 193, 2];
+//! let req = JsonRpcNotification::builder()
+//!     .method("event")
+//!     .params(data).unwrap() // Serialization of parameters could fail, so you need to catch this.
+//!     .build();
+//! ```
+//! 
+//! Deserializing a request from a string is super easy:
+//! ```rust
+//! use jrpc_types::JsonRpcNotification;
+//! 
+//! let data = r#"{"jsonrpc": "2.0", "method": "update", "params": [1,2,3,4,5]}"#;
+//! match TryInto::<JsonRpcNotification>::try_into(data) {
+//!     Ok(req) => {
+//!         // .. do something ..
+//!     }
+//!     Err(e) => {
+//!         // .. handle error ..
+//!     }
+//! }
+//! ```
 
 pub mod error;
 pub mod id;
@@ -62,3 +90,4 @@ pub mod notification;
 
 pub use error::Error as JsonRpcError;
 pub use request::Request as JsonRpcRequest;
+pub use notification::Notification as JsonRpcNotification;

@@ -58,4 +58,7 @@ pub mod id;
 pub mod version;
 pub mod params;
 pub mod request;
+pub mod notification;
+
+pub use error::Error as JsonRpcError;
 pub use request::Request as JsonRpcRequest;

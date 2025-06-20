@@ -55,6 +55,19 @@ impl TryFrom<Params> for String {
     }
 }
 
+impl TryFrom<serde_json::Value> for Params {
+    type Error = Error;
+
+    fn try_from(value: serde_json::Value) -> Result<Self, Self::Error> {
+        match value {
+            serde_json::Value::Object(_) | serde_json::Value::Array(_) => Ok(Params(value)),
+            _ => Err(Error::Serde(serde::de::Error::custom(
+                r#""params" must be a JSON object or array"#,
+            ))),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

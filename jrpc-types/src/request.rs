@@ -2,6 +2,8 @@
 
 use crate::{error::Error, id::Id, params::Params};
 
+pub mod builder;
+
 #[derive(Debug, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
 /// The JSON-RPC Request Object
 pub struct Request {
@@ -10,6 +12,12 @@ pub struct Request {
     pub method: String,
     pub params: Option<Params>,
     pub id: Id,
+}
+
+impl Request {
+    pub fn builder() -> builder::Builder<builder::MethodNone, builder::IdNone> {
+        builder::Builder::new()
+    }
 }
 
 impl TryFrom<&str> for Request {
@@ -107,5 +115,14 @@ mod tests {
         let req = r#"{"jsonrpc": 2.0, "method": "subtract", "id":2}"#; // jsonrpc version string
         let req_obj = TryInto::<Request>::try_into(req);
         assert!(req_obj.is_err());
+    }
+
+    #[test]
+    fn builder() {
+        let params = vec![10, 0];
+        let req = Request::builder().id(10).method("test-method").params(params).unwrap().build();
+        let req_str = TryInto::<String>::try_into(req).unwrap();
+        let new_req = TryInto::<Request>::try_into(req_str.as_str());
+        assert!(new_req.is_ok());
     }
 }

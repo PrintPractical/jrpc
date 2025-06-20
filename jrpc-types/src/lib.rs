@@ -21,9 +21,41 @@
 //! - **serde_json**: used for JSON de(serialization) implementation
 //! - **thiserror**: used for error reporting
 //! - **log** (optional): used for any warning logs required to be omitted.
+//! 
+//! ## Usage
+//! 
+//! ### Requests
+//! 
+//! You can easily build a JSON-RPC request:
+//! ```rust
+//! use jrpc_types::JsonRpcRequest;
+//! 
+//! let data = vec![10, 293, 2, 193, 2];
+//! let req = JsonRpcRequest::builder()
+//!     .method("sort")
+//!     .params(data).unwrap() // Serialization of parameters could fail, so you need to catch this.
+//!     .id(2)
+//!     .build();
+//! ```
+//! 
+//! Deserializing a request from a string is super easy:
+//! ```rust
+//! use jrpc_types::JsonRpcRequest;
+//! 
+//! let data = r#"{"jsonrpc": "2.0", "method": "subtract", "params": [42, 23], "id": 1}"#;
+//! match TryInto::<JsonRpcRequest>::try_into(data) {
+//!     Ok(req) => {
+//!         // .. do something ..
+//!     }
+//!     Err(e) => {
+//!         // .. handle error ..
+//!     }
+//! }
+//! ```
 
 pub mod error;
 pub mod id;
 pub mod version;
 pub mod params;
 pub mod request;
+pub use request::Request as JsonRpcRequest;

@@ -14,12 +14,6 @@ pub enum Id {
     Null,
 }
 
-impl From<String> for Id {
-    fn from(value: String) -> Self {
-        Id::String(value)
-    }
-}
-
 impl From<&str> for Id {
     fn from(value: &str) -> Self {
         Id::String(value.to_string())
@@ -113,8 +107,8 @@ mod tests {
 
     #[test]
     fn string_id() {
-        let initial_id = "string-id".to_string();
-        let to_id: Id = initial_id.clone().into();
+        let initial_id = "string-id";
+        let to_id: Id = initial_id.into();
         let from_id = TryInto::<String>::try_into(to_id);
         assert!(from_id.is_ok());
         assert_eq!(from_id.unwrap(), initial_id);
@@ -184,5 +178,20 @@ mod tests {
         let to_str = serde_json::to_string(&to);
         assert!(to_str.is_ok(), "{:?}", to_str.unwrap_err().to_string());
         assert_eq!(to_str.unwrap(), test_obj_str);
+    }
+
+    #[test]
+    fn negative_serde_tests() {
+        // id as object
+        let obj = r#"{"id":{"test":"id"}}"#;
+        assert!(serde_json::from_str::<TestObject>(obj).is_err());
+
+        // id as array
+        let obj = r#"{"id":["test","id"]}"#;
+        assert!(serde_json::from_str::<TestObject>(obj).is_err());
+
+        // id missing
+        let obj = r#"{}"#;
+        assert!(serde_json::from_str::<TestObject>(obj).is_err());
     }
 }

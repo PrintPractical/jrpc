@@ -23,7 +23,10 @@ impl Default for Builder<MethodNone> {
 
 impl Builder<MethodNone> {
     pub fn new() -> Self {
-        Builder { method: MethodNone, params: None }
+        Builder {
+            method: MethodNone,
+            params: None,
+        }
     }
 }
 
@@ -48,12 +51,19 @@ impl<M> Builder<M> {
 
 impl Builder<MethodNone> {
     pub fn method(self, m: &str) -> Builder<Method> {
-        Builder { method: Method(m.to_string()), params: self.params }
+        Builder {
+            method: Method(m.to_string()),
+            params: self.params,
+        }
     }
 }
 
 impl Builder<Method> {
     pub fn build(self) -> Notification {
-        Notification { jsonrpc: "2.0".to_string(), method: self.method.0, params: self.params }
+        Notification {
+            jsonrpc: "2.0".to_string(),
+            method: self.method.0,
+            params: self.params,
+        }
     }
 }

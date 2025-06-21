@@ -26,7 +26,11 @@ impl Default for Builder<MethodNone, IdNone> {
 
 impl Builder<MethodNone, IdNone> {
     pub fn new() -> Self {
-        Builder { method: MethodNone, params: None, id: IdNone }
+        Builder {
+            method: MethodNone,
+            params: None,
+            id: IdNone,
+        }
     }
 }
 
@@ -53,18 +57,31 @@ impl<M, I> Builder<M, I> {
 
 impl<I> Builder<MethodNone, I> {
     pub fn method(self, m: &str) -> Builder<Method, I> {
-        Builder { method: Method(m.to_string()), params: self.params, id: self.id }
+        Builder {
+            method: Method(m.to_string()),
+            params: self.params,
+            id: self.id,
+        }
     }
 }
 
 impl<M> Builder<M, IdNone> {
     pub fn id<T: Into<JId>>(self, i: T) -> Builder<M, Id> {
-        Builder { method: self.method, params: self.params, id: Id(i.into()) }
+        Builder {
+            method: self.method,
+            params: self.params,
+            id: Id(i.into()),
+        }
     }
 }
 
 impl Builder<Method, Id> {
     pub fn build(self) -> Request {
-        Request { jsonrpc: "2.0".to_string(), method: self.method.0, params: self.params, id: self.id.0 }
+        Request {
+            jsonrpc: "2.0".to_string(),
+            method: self.method.0,
+            params: self.params,
+            id: self.id.0,
+        }
     }
 }

@@ -6,7 +6,7 @@ use crate::error::Error;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize)]
 /// This object implements the "params" field in JSON-RPC objects.
-/// 
+///
 /// "params" can only be a Structured Value (by-name, by-position)
 pub struct Params(pub serde_json::Value);
 
@@ -41,7 +41,7 @@ impl<'de> serde::Deserialize<'de> for Params {
 
 impl TryFrom<&str> for Params {
     type Error = Error;
-    
+
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         serde_json::from_str(value).map_err(|e| e.into())
     }

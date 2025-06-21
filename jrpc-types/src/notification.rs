@@ -7,7 +7,7 @@ pub mod builder;
 #[derive(Debug, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
 /// The JSON-RPC Notification Object
 pub struct Notification {
-    #[serde(deserialize_with="crate::version::version_deserialize")]
+    #[serde(deserialize_with = "crate::version::version_deserialize")]
     jsonrpc: String,
     pub method: String,
     pub params: Option<Params>,
@@ -89,7 +89,11 @@ mod tests {
     #[test]
     fn builder() {
         let params = vec![10, 0];
-        let req = Notification::builder().method("test-notification").params(params).unwrap().build();
+        let req = Notification::builder()
+            .method("test-notification")
+            .params(params)
+            .unwrap()
+            .build();
         let req_str = TryInto::<String>::try_into(req).unwrap();
         let new_req = TryInto::<Notification>::try_into(req_str.as_str());
         assert!(new_req.is_ok());

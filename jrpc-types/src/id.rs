@@ -5,7 +5,7 @@ use crate::error::Error;
 #[derive(Debug, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(untagged)] // TODO: We can make this more efficient by writing our own deserialization impl
 /// This object implements the "id" field in JSON-RPC objects.
-/// 
+///
 /// "id" can only be String, Number (including Fractional), or Null
 pub enum Id {
     String(String),
@@ -26,9 +26,15 @@ impl TryFrom<Id> for String {
     fn try_from(value: Id) -> Result<Self, Self::Error> {
         match value {
             Id::String(v) => Ok(v),
-            Id::Number(_) => Err(Error::InvalidType("cannot convert Id type Number to String".to_string())),
-            Id::Fractional(_) => Err(Error::InvalidType("cannot convert Id type Fractional to String".to_string())),
-            Id::Null => Err(Error::InvalidType("cannot convert Id type Null to String".to_string())),
+            Id::Number(_) => Err(Error::InvalidType(
+                "cannot convert Id type Number to String".to_string(),
+            )),
+            Id::Fractional(_) => Err(Error::InvalidType(
+                "cannot convert Id type Fractional to String".to_string(),
+            )),
+            Id::Null => Err(Error::InvalidType(
+                "cannot convert Id type Null to String".to_string(),
+            )),
         }
     }
 }
@@ -44,10 +50,16 @@ impl TryFrom<Id> for i64 {
 
     fn try_from(value: Id) -> Result<Self, Self::Error> {
         match value {
-            Id::String(_) => Err(Error::InvalidType("cannot convert Id type String to Number".to_string())),
+            Id::String(_) => Err(Error::InvalidType(
+                "cannot convert Id type String to Number".to_string(),
+            )),
             Id::Number(v) => Ok(v),
-            Id::Fractional(_) => Err(Error::InvalidType("cannot convert Id type Fractional to Number".to_string())),
-            Id::Null => Err(Error::InvalidType("cannot convert Id type Null to Number".to_string())),
+            Id::Fractional(_) => Err(Error::InvalidType(
+                "cannot convert Id type Fractional to Number".to_string(),
+            )),
+            Id::Null => Err(Error::InvalidType(
+                "cannot convert Id type Null to Number".to_string(),
+            )),
         }
     }
 }
@@ -63,10 +75,16 @@ impl TryFrom<Id> for f32 {
 
     fn try_from(value: Id) -> Result<Self, Self::Error> {
         match value {
-            Id::String(_) => Err(Error::InvalidType("cannot convert Id type String to Fractional".to_string())),
-            Id::Number(_) => Err(Error::InvalidType("cannot convert Id type Number to Fractional".to_string())),
+            Id::String(_) => Err(Error::InvalidType(
+                "cannot convert Id type String to Fractional".to_string(),
+            )),
+            Id::Number(_) => Err(Error::InvalidType(
+                "cannot convert Id type Number to Fractional".to_string(),
+            )),
             Id::Fractional(v) => Ok(v),
-            Id::Null => Err(Error::InvalidType("cannot convert Id type Null to Fractional".to_string())),
+            Id::Null => Err(Error::InvalidType(
+                "cannot convert Id type Null to Fractional".to_string(),
+            )),
         }
     }
 }
@@ -82,9 +100,15 @@ impl TryFrom<Id> for () {
 
     fn try_from(value: Id) -> Result<Self, Self::Error> {
         match value {
-            Id::String(_) => Err(Error::InvalidType("cannot convert Id type String to ()".to_string())),
-            Id::Number(_) => Err(Error::InvalidType("cannot convert Id type Number to ()".to_string())),
-            Id::Fractional(_) => Err(Error::InvalidType("cannot convert Id type Fractional to ()".to_string())),
+            Id::String(_) => Err(Error::InvalidType(
+                "cannot convert Id type String to ()".to_string(),
+            )),
+            Id::Number(_) => Err(Error::InvalidType(
+                "cannot convert Id type Number to ()".to_string(),
+            )),
+            Id::Fractional(_) => Err(Error::InvalidType(
+                "cannot convert Id type Fractional to ()".to_string(),
+            )),
             Id::Null => Ok(()),
         }
     }

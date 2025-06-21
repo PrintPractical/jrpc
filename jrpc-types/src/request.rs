@@ -7,7 +7,7 @@ pub mod builder;
 #[derive(Debug, Clone, PartialEq, serde::Deserialize, serde::Serialize)]
 /// The JSON-RPC Request Object
 pub struct Request {
-    #[serde(deserialize_with="crate::version::version_deserialize")]
+    #[serde(deserialize_with = "crate::version::version_deserialize")]
     jsonrpc: String,
     pub method: String,
     pub params: Option<Params>,
@@ -128,7 +128,12 @@ mod tests {
     #[test]
     fn builder() {
         let params = vec![10, 0];
-        let req = Request::builder().id(10).method("test-method").params(params).unwrap().build();
+        let req = Request::builder()
+            .id(10)
+            .method("test-method")
+            .params(params)
+            .unwrap()
+            .build();
         let req_str = TryInto::<String>::try_into(req).unwrap();
         let new_req = TryInto::<Request>::try_into(req_str.as_str());
         assert!(new_req.is_ok());

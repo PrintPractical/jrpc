@@ -1,6 +1,6 @@
 //! This crate implements the structures as defined in the [JSON-RPC 2.0 Specification](https://www.jsonrpc.org/specification)
 //!
-//! ## Requirements
+//! # Requirements
 //!
 //! These requirements derived from the specification itself.
 //!
@@ -11,15 +11,15 @@
 //! - The "method" field MUST contain a String in any request.
 //! - The optional "params" field MUST be either an Object (by-name) or Array (by-position) IF the "params" are present in the request or notification.
 //!
-//! ## Dependencies
+//! # Dependencies
 //!
 //! - **serde**: used for (de)serialization
 //! - **serde_json**: used for JSON de(serialization) implementation
 //! - **thiserror**: used for error reporting
 //!
-//! ## Usage
+//! # Usage
 //!
-//! ### Requests
+//! ## Requests
 //!
 //! You can easily build a JSON-RPC request:
 //! ```rust
@@ -49,7 +49,7 @@
 //! }
 //! ```
 //!
-//! ### Notifications
+//! ## Notifications
 //!
 //! JSON-RPC Notifications are pretty much Requests, without an ID... You can build Notifications like:
 //! ```rust
@@ -78,7 +78,7 @@
 //! }
 //! ```
 //!
-//! ### Response
+//! ## Response
 //!
 //! A JSON-RPC response contains different fields depending on success or error.
 //! There is also a select set of (code, message) pairs for errors that are defined in the spec.

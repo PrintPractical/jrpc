@@ -1,6 +1,6 @@
 //! This module implements the response JSON-RPC object.
 
-use crate::{error::Error, id::Id, params::Params};
+use crate::{error::Error, id::Id};
 
 pub mod builder;
 

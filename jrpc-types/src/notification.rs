@@ -1,6 +1,6 @@
 //! This module implements the notification JSON-RPC object.
 
-use crate::{error::Error, id::Id, params::Params};
+use crate::{error::Error, params::Params};
 
 pub mod builder;
 

@@ -35,7 +35,7 @@ impl TryFrom<Id> for String {
 
 impl From<i64> for Id {
     fn from(value: i64) -> Self {
-        Id::Number(value.into())
+        Id::Number(value)
     }
 }
 

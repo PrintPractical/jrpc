@@ -26,7 +26,7 @@ pub fn version_deserialize<'de, D>(deserializer: D) -> Result<String, D::Error>
                 _ => {
                     Err(
                         E::custom(
-                            format!("jsonrpc version NOT 2.0: {}", v)
+                            format!("jsonrpc version NOT 2.0: {v}")
                         )
                     )
                 }

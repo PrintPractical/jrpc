@@ -15,6 +15,12 @@ pub struct Builder<M> {
     params: Option<Params>,
 }
 
+impl Default for Builder<MethodNone> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Builder<MethodNone> {
     pub fn new() -> Self {
         Builder { method: MethodNone, params: None }

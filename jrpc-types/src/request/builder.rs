@@ -18,6 +18,12 @@ pub struct Builder<M, I> {
     id: I,
 }
 
+impl Default for Builder<MethodNone, IdNone> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Builder<MethodNone, IdNone> {
     pub fn new() -> Self {
         Builder { method: MethodNone, params: None, id: IdNone }

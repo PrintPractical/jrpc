@@ -1,6 +1,6 @@
 //! This module implements the structure for the "params" field in JSON-RPC objects.
 
-use std::{fmt::Write, ops::{Deref, DerefMut}};
+use std::ops::{Deref, DerefMut};
 
 use crate::error::Error;
 

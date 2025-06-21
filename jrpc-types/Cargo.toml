@@ -1,7 +1,11 @@
 [package]
 name = "jrpc-types"
+description = "A simple but super helpful crate for (de)serializing JSON-RPC 2.0 objects."
 version = "0.1.0"
 edition = "2024"
+license-file = "../LICENSE"
+authors = ["Chris Buchter <print.practical@gmail.com>"]
+homepage = "https://github.com/PrintPractical/jrpc"
 
 [dependencies]
 serde = { version = "1.0.219", features = ["derive"] }

@@ -66,7 +66,7 @@
 //!     .build();
 //! ```
 //! 
-//! Deserializing a request from a string is super easy:
+//! Deserializing a notification from a string is super easy:
 //! ```rust
 //! use jrpc_types::JsonRpcNotification;
 //! 
@@ -80,6 +80,69 @@
 //!     }
 //! }
 //! ```
+//! 
+//! ### Response
+//! 
+//! A JSON-RPC response contains different fields depending on success or error.
+//! There is also a select set of (code, message) pairs for errors that are defined in the spec.
+//! The builder implementation makes it incredibly easy to build these responses.
+//! 
+//! Success response (w/ optional data):
+//! ```rust
+//! use jrpc_types::JsonRpcResponse;
+//! 
+//! let data = vec![10, 293, 2, 193, 2];
+//! let req = JsonRpcResponse::builder()
+//!     .success()
+//!     .result(data).unwrap() // Serialization of parameters could fail, so you need to catch this.
+//!     .id(2)
+//!     .build();
+//! ```
+//! 
+//! Invalid request error:
+//! ```rust
+//! use jrpc_types::JsonRpcResponse;
+//! 
+//! let data = vec![10, 293, 2, 193, 2];
+//! let req = JsonRpcResponse::builder()
+//!     .error()
+//!     .invalid_request()
+//!     .id(2)
+//!     .build();
+//! ```
+//! 
+//! Custom Error:
+//! ```rust
+//! use jrpc_types::JsonRpcResponse;
+//! 
+//! let data = vec![10, 293, 2, 193, 2];
+//! let req = JsonRpcResponse::builder()
+//!     .error()
+//!     .code(-23)
+//!     .message("bad request man...")
+//!     .id(2)
+//!     .build();
+//! ```
+//! 
+//! **NOTE**: If you are processing a JsonRpcRequest and building a JsonRpcResponse, you can use &JsonRpcRequest in the id() builder function.
+//! ```rust
+//! use jrpc_types::{JsonRpcRequest, JsonRpcResponse};
+//! 
+//! // Just for docs, creating this here.. assume you have this.
+//! let req = JsonRpcRequest::builder()
+//!     .id(10)
+//!     .method("subtract")
+//!     .params_str("[5,2]").unwrap() // Serialization of parameters could fail, so you need to catch this.
+//!     .build();
+//! 
+//! // ... process stuff ...
+//! 
+//! let rsp = JsonRpcResponse::builder()
+//!     .id(&req)
+//!     .success()
+//!     .result(3).unwrap() // Serialization of parameters could fail, so you need to catch this.
+//!     .build();
+//! ```
 
 pub mod error;
 pub mod id;
@@ -87,7 +150,9 @@ pub mod version;
 pub mod params;
 pub mod request;
 pub mod notification;
+pub mod response;
 
 pub use error::Error as JsonRpcError;
 pub use request::Request as JsonRpcRequest;
 pub use notification::Notification as JsonRpcNotification;
+pub use response::Response as JsonRpcResponse;

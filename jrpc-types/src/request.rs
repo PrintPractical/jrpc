@@ -36,6 +36,14 @@ impl TryFrom<Request> for String {
     }
 }
 
+// This is helpful for the response builder..
+// You can pass a ref to Request to the id() function
+impl From<&Request> for Id {
+    fn from(value: &Request) -> Self {
+        value.id.clone()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

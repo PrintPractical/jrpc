@@ -31,7 +31,7 @@ impl<M, I> Builder<M, I> {
         Ok(Builder {
             method: self.method,
             params: Some(params),
-            id: self.id
+            id: self.id,
         })
     }
 
@@ -40,7 +40,7 @@ impl<M, I> Builder<M, I> {
         Ok(Builder {
             method: self.method,
             params: Some(params),
-            id: self.id
+            id: self.id,
         })
     }
 }

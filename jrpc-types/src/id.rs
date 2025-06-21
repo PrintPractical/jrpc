@@ -54,12 +54,6 @@ impl TryFrom<Id> for i64 {
 
 impl From<f32> for Id {
     fn from(value: f32) -> Self {
-        #[cfg(feature = "log")]
-        {
-            log::warn!("");
-            log::warn!("JSON-RPC 2.0 Specification states that Numbers (for ID) SHOULD NOT contain fractional parts!");
-            log::warn!("");
-        }
         Id::Fractional(value)
     }
 }

@@ -72,7 +72,10 @@ impl SuccessBuilder<IdNone> {
 
 impl<I> SuccessBuilder<I> {
     pub fn result(self, p: serde_json::Value) -> SuccessBuilder<I> {
-        SuccessBuilder { id: self.id, result: Some(p) }
+        SuccessBuilder {
+            id: self.id,
+            result: Some(p),
+        }
     }
 
     pub fn result_serialize<T: serde::Serialize>(self, p: T) -> Result<SuccessBuilder<I>, Error> {
@@ -200,7 +203,12 @@ impl<I> ErrorBuilder<I, CodeNone, MessageNone> {
 
 impl<I, C, M> ErrorBuilder<I, C, M> {
     pub fn data(self, p: serde_json::Value) -> ErrorBuilder<I, C, M> {
-        ErrorBuilder { id: self.id, code: self.code, message: self.message, data: Some(p) }
+        ErrorBuilder {
+            id: self.id,
+            code: self.code,
+            message: self.message,
+            data: Some(p),
+        }
     }
 
     pub fn data_serialize<T: serde::Serialize>(self, p: T) -> Result<ErrorBuilder<I, C, M>, Error> {

@@ -32,7 +32,10 @@ impl Builder<MethodNone> {
 
 impl<M> Builder<M> {
     pub fn params(self, p: serde_json::Value) -> Result<Builder<M>, Error> {
-        Ok(Builder { method: self.method, params: Some(Params::try_from(p)?) })
+        Ok(Builder {
+            method: self.method,
+            params: Some(Params::try_from(p)?),
+        })
     }
 
     pub fn params_serialize<T: serde::Serialize>(self, p: T) -> Result<Builder<M>, Error> {

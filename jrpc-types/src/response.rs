@@ -129,7 +129,7 @@ mod tests {
         let rsp = Response::builder()
             .id(10)
             .success()
-            .result(params)
+            .result_serialize(params)
             .unwrap()
             .build();
         let rsp_str = TryInto::<String>::try_into(rsp).unwrap();

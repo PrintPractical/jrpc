@@ -131,7 +131,7 @@ mod tests {
         let req = Request::builder()
             .id(10)
             .method("test-method")
-            .params(params)
+            .params_serialize(params)
             .unwrap()
             .build();
         let req_str = TryInto::<String>::try_into(req).unwrap();

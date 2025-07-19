@@ -28,7 +28,7 @@
 //! let data = vec![10, 293, 2, 193, 2];
 //! let req = JsonRpcRequest::builder()
 //!     .method("sort")
-//!     .params(data)
+//!     .params_serialize(data)
 //!     .unwrap() // Serialization of parameters could fail, so you need to catch this.
 //!     .id(2)
 //!     .build();
@@ -58,7 +58,7 @@
 //! let data = vec![10, 293, 2, 193, 2];
 //! let req = JsonRpcNotification::builder()
 //!     .method("event")
-//!     .params(data)
+//!     .params_serialize(data)
 //!     .unwrap() // Serialization of parameters could fail, so you need to catch this.
 //!     .build();
 //! ```
@@ -91,7 +91,7 @@
 //! let data = vec![10, 293, 2, 193, 2];
 //! let req = JsonRpcResponse::builder()
 //!     .success()
-//!     .result(data)
+//!     .result_serialize(data)
 //!     .unwrap() // Serialization of parameters could fail, so you need to catch this.
 //!     .id(2)
 //!     .build();
@@ -139,7 +139,7 @@
 //! let rsp = JsonRpcResponse::builder()
 //!     .id(&req)
 //!     .success()
-//!     .result(3)
+//!     .result_serialize(3)
 //!     .unwrap() // Serialization of parameters could fail, so you need to catch this.
 //!     .build();
 //! ```

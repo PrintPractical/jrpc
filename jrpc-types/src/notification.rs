@@ -91,7 +91,7 @@ mod tests {
         let params = vec![10, 0];
         let req = Notification::builder()
             .method("test-notification")
-            .params(params)
+            .params_serialize(params)
             .unwrap()
             .build();
         let req_str = TryInto::<String>::try_into(req).unwrap();

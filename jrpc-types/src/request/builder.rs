@@ -35,7 +35,11 @@ impl Builder<MethodNone, IdNone> {
 }
 
 impl<M, I> Builder<M, I> {
-    pub fn params<T: serde::Serialize>(self, p: T) -> Result<Builder<M, I>, Error> {
+    pub fn params(self, p: serde_json::Value) -> Result<Builder<M, I>, Error> {
+        Ok(Builder { method: self.method, params: Some(Params::try_from(p)?), id: self.id })
+    }
+
+    pub fn params_serialize<T: serde::Serialize>(self, p: T) -> Result<Builder<M, I>, Error> {
         let value = serde_json::to_value(p).map_err(Error::from)?;
         let params = Params::try_from(value)?;
         Ok(Builder {
